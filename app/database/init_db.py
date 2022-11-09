@@ -8,7 +8,7 @@ session = Session(bind=engine)
 class RepController:
     # Add new user, default rep is 10
     def add_new_user(self, user_id):
-        new_user = UserReps(user_id=user_id, reputation=-10)
+        new_user = UserReps(user_id=user_id, reputation=10)
         session.add(new_user)
         session.commit()
 
