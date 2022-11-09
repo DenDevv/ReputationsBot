@@ -1,5 +1,5 @@
 from app.database import Session, engine
-from app.models import UserReps
+from app.models import UserReps, UserRepHistory
 
 
 session = Session(bind=engine)
@@ -8,7 +8,7 @@ session = Session(bind=engine)
 class RepController:
     # Add new user, default rep is 10
     def add_new_user(self, user_id):
-        new_user = UserReps(user_id=user_id, reputation=10)
+        new_user = UserReps(user_id=user_id, reputation=-10)
         session.add(new_user)
         session.commit()
 
@@ -31,3 +31,13 @@ class RepController:
         user = self.get_user(user_id)                   # getting user by user_id
         user.reputation -= 0.1                          # reducing rep by 0.1
         session.commit()                                # saving changes
+
+    # User reduce rep history
+    def reduce_rep_history(self, user_id, reason="-"):
+        new_h = UserRepHistory(user_id=user_id, reason=reason)
+        session.add(new_h)
+        session.commit()
+    
+    # Get user reduce rep history
+    def get_reduce_rep_history(self, user_id):
+        return session.query(UserRepHistory).filter(UserRepHistory.user_id==user_id).all()

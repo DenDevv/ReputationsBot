@@ -29,28 +29,24 @@ class MessageHandler:
 
                         if msg in self.rep_up:
                             db.increase_rep(user_id)
-                            bot.reply_to(
-                                message,
-                                f"📈 Reputation for <b>{user_fname}</b>, has been increased!"
-                            )
-
-                        if msg in self.rep_down:
-                            if db.get_rep(my_id) >= 15:
-                                db.reduce_rep(user_id)
-                                bot.reply_to(
-                                    message,
-                                    f"📉 Reputation for <b>{user_fname}</b>, has been reduced!"
-                                )
+                            text = f"📈 Reputation for <b>{user_fname}</b>, has been increased!"
+ 
+                        if (msg.split(" ")[0] in self.rep_down) and (db.get_rep(my_id) >= 15):
+                            db.reduce_rep(user_id)
+                            try:
+                                reason = msg.split(" ")[1]
+                                db.reduce_rep_history(user_id, reason)
+                            except:
+                                pass
+                            text = f"📉 Reputation for <b>{user_fname}</b>, has been reduced!"
 
                         if msg in self.info:
-                            bot.reply_to(
-                                message,
-                                f"📊 Reputation of <b>{user_fname}</b>: {db.get_rep(user_id)}🌟"
-                        )
-                    return
+                            text = f"📊 Reputation of <b>{user_fname}</b>: {db.get_rep(user_id)}🌟"
 
-                if msg in self.info:
-                    bot.reply_to(
-                        message,
-                        f"📊 Your reputation: {db.get_rep(my_id)}🌟"
-                )
+                if (msg in self.info) and not message.reply_to_message:
+                    text = f"📊 Your reputation: {db.get_rep(my_id)}🌟"
+
+                try:
+                    bot.reply_to(message, text)
+                except:
+                    pass
