@@ -27,17 +27,13 @@ class RepController:
         session.commit()                                # saving changes
 
     # Reduce rep
-    def reduce_rep(self, user_id):
+    def reduce_rep(self, user_id, reason="-"):
+        new_h = UserRepHistory(user_id=user_id, reason=reason)
         user = self.get_user(user_id)                   # getting user by user_id
         user.reputation -= 0.1                          # reducing rep by 0.1
+        session.add(new_h)
         session.commit()                                # saving changes
 
-    # User reduce rep history
-    def reduce_rep_history(self, user_id, reason="-"):
-        new_h = UserRepHistory(user_id=user_id, reason=reason)
-        session.add(new_h)
-        session.commit()
-    
     # Get user reduce rep history
     def get_reduce_rep_history(self, user_id):
         return session.query(UserRepHistory).filter(UserRepHistory.user_id==user_id).all()

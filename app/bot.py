@@ -4,6 +4,9 @@ from app.database import engine, Base
 from app.handlers import MessageHandler, JoinedUserHandler, GetHistoryHandler
 
 
+# Drop a database for tests!
+Base.metadata.drop_all(bind=engine)
+
 # Create a database table
 Base.metadata.create_all(engine)
 
