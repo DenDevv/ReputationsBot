@@ -18,10 +18,10 @@ class GetHistoryHandler:
                     for record in history:
                         h_text += f"Reason: <b>{record.reason}</b>\nDate: <b>{record.date}</b>\n\n"
                     
-                    try:
+                    if history:
                         bot.reply_to(
                             message,
                             "🗃 Reducing rep history of user:\n\n" + h_text
                         )
-                    except:
-                        bot.reply_to(message, "❌ This user has not rep history!")
+                        return
+                    bot.reply_to(message, "❌ This user has not rep history!")
