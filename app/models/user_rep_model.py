@@ -1,9 +1,12 @@
 from sqlalchemy import Column, BigInteger, Integer
 
-from app.database import Base
+from config import config
 
 
-class UserReps(Base):
+dev_config = config.get("development")
+
+
+class UserReps(dev_config.Base):
     __tablename__ = "user_reps"
     id = Column(Integer(), primary_key=True)
     user_id = Column(BigInteger(), nullable=False, unique=True)

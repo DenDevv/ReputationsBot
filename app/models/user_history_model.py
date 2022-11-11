@@ -1,10 +1,13 @@
 from datetime import datetime
 from sqlalchemy import Column, BigInteger, Integer, String, DateTime
 
-from app.database import Base
+from config import config
 
 
-class UserRepHistory(Base):
+dev_config = config.get("development")
+
+
+class UserRepHistory(dev_config.Base):
     __tablename__ = "user_rep_history"
     id = Column(Integer(), primary_key=True)
     user_id = Column(BigInteger(), nullable=False)

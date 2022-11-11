@@ -2,6 +2,9 @@ from app.database import RepController
 from config import config
 
 
+dev_config = config.get("development")
+
+
 class JoinedUserHandler:
     def __init__(self, bot) -> None:
         @bot.message_handler(content_types=['new_chat_members'])
@@ -19,7 +22,7 @@ class JoinedUserHandler:
                 if rep <= -10:
                     bot.reply_to(
                         message, 
-                        config.attention_text.format(
+                        dev_config.attention_text.format(
                             rep, first_name, last_name,
                             username, is_bot, user_id
                         )

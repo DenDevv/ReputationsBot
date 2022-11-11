@@ -1,8 +1,9 @@
-from app.database import Session, engine
+from config import config
 from app.models import UserReps, UserRepHistory
 
 
-session = Session(bind=engine)
+dev_config = config.get("development")
+session = dev_config.Session(bind=dev_config.engine)
 
 
 class RepController:

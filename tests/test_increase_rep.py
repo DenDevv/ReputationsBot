@@ -1,5 +1,7 @@
 import pytest
-from app.database import RepController, drop_tables
+
+from app.database import RepController
+from config import drop_tables
 
 
 db = RepController()
