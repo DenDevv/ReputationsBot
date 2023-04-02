@@ -30,7 +30,7 @@ class DevelopmentConfig:
         "sqlite:///app/database/database.db?check_same_thread=False"
     )
 
-    bot_id = 5714569779
+    bot_id = 5871243235
 
     attention_text = """⚠️ Attention! Joined user with overlow reputation! ⚠️
 

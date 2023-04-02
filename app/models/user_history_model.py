@@ -12,4 +12,6 @@ class UserRepHistory(dev_config.Base):
     id = Column(Integer(), primary_key=True)
     user_id = Column(BigInteger(), nullable=False)
     reason = Column(String(255), nullable=False)
-    date = Column(DateTime, server_default=datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S"))
+    date = Column(
+        DateTime, server_default=datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
+    )
